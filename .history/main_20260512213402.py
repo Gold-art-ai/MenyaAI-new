@@ -28,7 +28,7 @@ def test_system():
     print(f"English: {class_reports['EN']}")
     print(f"French: {class_reports['FR']}")
     
-    advice = analyst.get_individual_advice("Joshua", 0.70, 9)
-    print(f"\n Advice for Joshua: {advice['EN']}")
+    advice = analyst.get_individual_advice("Joshua", 1)
+     
 if __name__ == "__main__":
     test_system()
