@@ -9,8 +9,8 @@ def train_recommender(csv_path='data/toddler_progress.csv'):
     le_act= LabelEncoder()
     le_target = LabelEncoder()
 
-    df['current_activity'] = le_act.fit_transform(df['current_activity'])
-    X = df[['current_activity', 'precision', 'lifts', 'time_spent']]
+    df['current_act_enc'] = le_act.fit_transform(df['current_activity'])
+    X = df[['current_act_enc', 'precision', 'lifts', 'time_spent']]
     y = le_target.fit_transform(df['recommended_activity'])
 
     model = RandomForestClassifier(n_estimators=100)
