@@ -2,7 +2,6 @@ from data.raw_process import generate_toddler_dataset
 from src.ml_engine.trainer import train_recommender
 from src.ml_engine.recommender import RecommendationEngine
 from src.analytics.report_gen import TeacherAnalyst
-from src.buddy_service.buddy_logic import BuddyService
 def test_system():
     generate_toddler_dataset()
 

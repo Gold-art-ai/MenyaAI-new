@@ -2,7 +2,6 @@ from data.raw_process import generate_toddler_dataset
 from src.ml_engine.trainer import train_recommender
 from src.ml_engine.recommender import RecommendationEngine
 from src.analytics.report_gen import TeacherAnalyst
-from src.buddy_service.buddy_logic import BuddyService
 def test_system():
     generate_toddler_dataset()
 
@@ -31,15 +30,6 @@ def test_system():
     
     advice = analyst.get_individual_advice("Joshua", 0.70, 9)
     print(f"\n Advice for Joshua: {advice['EN']}")
-    print("\n--- BUDDY VOICE FEEDBACK ---")
-    buddy = BuddyService()
     
-    # Simulate a child finishing with low precision in Kinyarwanda
-    low_score_feedback = buddy.get_buddy_response(0.4, language="RW")
-    print(f"Buddy says (Low Score - RW): {low_score_feedback}")
-    
-    # Simulate a child finishing with high precision in French
-    high_score_feedback = buddy.get_buddy_response(0.95, language="FR")
-    print(f"Buddy says (High Score - FR): {high_score_feedback}")
 if __name__ == "__main__":
     test_system()
