@@ -9,13 +9,13 @@ def test_system():
 
     engine = RecommendationEngine()
 
-    result = engine.get_recommendation("Shapes", 0.55,0,15)
+    result = engine.get_recommendation("Shapes", 0.95,0,15)
 
     print("\n--- Test Result ----")
     print(f"Kid performed: Shapes")
     print(f"AI Recommended: {result}")
 
-    if "Shapes" in result:
+    if "Letters" in result:
         print("Success: AI correctly leveled up student up!")
     else:
         print("Failed: AI did not do the recognition well!")

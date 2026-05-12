@@ -15,7 +15,7 @@ def test_system():
     print(f"Kid performed: Shapes")
     print(f"AI Recommended: {result}")
 
-    if "Shapes" in result:
+    if "Letters" in result:
         print("Success: AI correctly leveled up student up!")
     else:
         print("Failed: AI did not do the recognition well!")

@@ -29,7 +29,7 @@ def generate_toddler_dataset(output_path='data/toddler_progress.csv'):
 
     df = pd.DataFrame(data, columns=['current_activity', 'precision', 'lifts', 'time_spent', 'recommended_activity'])
     df.to_csv(output_path, index=False)
-    print(f"Dataset generated at {output_path}")
+    print(fDataset generated at {output_path}")
 
 if __name__ == "__main__":
     generate_toddler_dataset()
