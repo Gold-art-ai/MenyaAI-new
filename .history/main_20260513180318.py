@@ -50,8 +50,6 @@ def test_system():
     user_touch = [(105, 102), (148, 155), (205, 95), (155, 48)]
     
     print("\n--Raw Data Processing --")
-    processor = ActivityProcessor(target_circle)
-    metrics = processor.calculate_metrics(user_touch, time_taken=15, lifts=1)
     print(f"Calculated Precision: {metrics['precision']}")
     print(f"Calculated Smoothness: {metrics['smoothness']}")
 if __name__ == "__main__":

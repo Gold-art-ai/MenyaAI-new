@@ -1,11 +1,9 @@
-from sklearn import metrics
-
 from data.raw_process import generate_toddler_dataset
 from src.ml_engine.trainer import train_recommender
 from src.ml_engine.recommender import RecommendationEngine
 from src.analytics.report_gen import TeacherAnalyst
 from src.buddy_service.buddy_logic import BuddyService
-from src.ml_engine.processor import ActivityProcessor
+from src.ml_engine.processor 
 def test_system():
     generate_toddler_dataset()
 
@@ -34,7 +32,6 @@ def test_system():
     
     advice = analyst.get_individual_advice("Joshua", 0.70, 9)
     print(f"\n Advice for Joshua: {advice['EN']}")
-    
     print("\n--- BUDDY VOICE FEEDBACK ---")
     buddy = BuddyService()
     
@@ -45,14 +42,5 @@ def test_system():
     # Simulate a child finishing with high precision in French
     high_score_feedback = buddy.get_buddy_response(0.95, language="FR")
     print(f"Buddy says (High Score - FR): {high_score_feedback}")
-    
-    target_circle = [(100, 100), (150, 150), (200, 100), (150, 50)]
-    user_touch = [(105, 102), (148, 155), (205, 95), (155, 48)]
-    
-    print("\n--Raw Data Processing --")
-    processor = ActivityProcessor(target_circle)
-    metrics = processor.calculate_metrics(user_touch, time_taken=15, lifts=1)
-    print(f"Calculated Precision: {metrics['precision']}")
-    print(f"Calculated Smoothness: {metrics['smoothness']}")
 if __name__ == "__main__":
     test_system()

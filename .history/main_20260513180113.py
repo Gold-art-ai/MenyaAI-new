@@ -1,5 +1,3 @@
-from sklearn import metrics
-
 from data.raw_process import generate_toddler_dataset
 from src.ml_engine.trainer import train_recommender
 from src.ml_engine.recommender import RecommendationEngine
@@ -47,12 +45,6 @@ def test_system():
     print(f"Buddy says (High Score - FR): {high_score_feedback}")
     
     target_circle = [(100, 100), (150, 150), (200, 100), (150, 50)]
-    user_touch = [(105, 102), (148, 155), (205, 95), (155, 48)]
-    
-    print("\n--Raw Data Processing --")
-    processor = ActivityProcessor(target_circle)
-    metrics = processor.calculate_metrics(user_touch, time_taken=15, lifts=1)
-    print(f"Calculated Precision: {metrics['precision']}")
-    print(f"Calculated Smoothness: {metrics['smoothness']}")
+    user_touch = = 
 if __name__ == "__main__":
     test_system()
