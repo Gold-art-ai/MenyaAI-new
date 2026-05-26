@@ -1,5 +1,4 @@
 from src.ml_engine.recommender import RecommendationEngine
-from src.analytics.report_gen import TeacherAnalyst
 from src.buddy_service.buddy_ai import BuddyAI  # Use the AI version we just made
 from src.ml_engine.processor import ActivityProcessor
 
@@ -22,9 +21,26 @@ def run_ml_pipeline(current_act, user_touches, time, lifts):
 
 def main():
     print("[START] Umwana AI Engine Started")
+    
+    print("\nSelect Preferred Language:")
+    print("1. Kinyarwanda to English (Code-Switching)")
+    print("2. Kinyarwanda to French (Code-Switching)")
+    print("3. Pure Kinyarwanda")
+    print("4. Pure English")
+    print("5. Pure French")
+    choice = input("Enter choice (1-5, default is 1): ").strip()
+    
+    lang_map = {
+        "1": "RW-EN",
+        "2": "RW-FR",
+        "3": "RW",
+        "4": "EN",
+        "5": "FR"
+    }
+    language_preference = lang_map.get(choice, "RW-EN")
 
     # Input Simulation (This replaces the messy dataset generation logs)
-    student = "Joshua"
+    student = "Gloria"
     current_activity = "Shapes"
     mock_touches = [(105, 102), (148, 155), (205, 95)]
 
@@ -39,14 +55,7 @@ def main():
     # 3. Trigger the Real Buddy AI (The Voice part)
     print("\n [BUDDY] Speaking to child...")
     buddy = BuddyAI()
-    buddy.give_praise(student, metrics["precision"])
-
-    # 4. Teacher Insight
-    analyst = TeacherAnalyst()
-    advice = analyst.get_individual_advice(
-        student, metrics["precision"], metrics["lifts"]
-    )
-    print(f"\n [TEACHER ADVICE]: {advice['EN']}")
+    buddy.give_praise(student, metrics["precision"], current_activity, next_task, language_preference)
 
 
 if __name__ == "__main__":
