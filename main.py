@@ -41,7 +41,24 @@ def main():
 
     # Input Simulation (This replaces the messy dataset generation logs)
     student = "Gloria"
-    current_activity = "Shapes"
+    
+    print("\nSelect Simulated Current Activity Level:")
+    print("1. Lines (Tracing patterns)")
+    print("2. Shapes (Circles, squares...)")
+    print("3. Letters (Alphabets)")
+    print("4. Numbers (Digit tracing)")
+    print("5. Words (Writing simple words)")
+    print("6. MathBasics (Simple math operations)")
+    act_choice = input("Enter choice (1-6, default is 2): ").strip()
+    act_map = {
+        "1": "Lines",
+        "2": "Shapes",
+        "3": "Letters",
+        "4": "Numbers",
+        "5": "Words",
+        "6": "MathBasics"
+    }
+    current_activity = act_map.get(act_choice, "Shapes")
     mock_touches = [(105, 102), (148, 155), (205, 95)]
 
     # 1. Run the AI Logic
