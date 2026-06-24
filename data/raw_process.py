@@ -15,26 +15,42 @@ def generate_toddler_dataset(output_path='data/toddler_progress.csv'):
         lifts = np.random.randint(0, 8)
         time_spent = np.random.uniform(10, 60)
         
+        # Correlate smoothness with lifts and random noise:
+        # 1.0 is perfectly smooth, > 1.5 is shaky/scribbling
+        smoothness = 1.0 + (lifts * 0.1) + np.random.uniform(-0.1, 0.25)
+        smoothness = max(1.0, round(smoothness, 2))
+        
         # LOGIC FOR THE AI TO LEARN:
-        # If precision is high and lifts are low, Move UP.
-        if precision > 0.80 and lifts <= 1:
+        # 1. Advance: If good precision, few lifts, and steady hand
+        if precision >= 0.75 and lifts <= 2 and smoothness < 1.4:
             target = activities[current_lvl + 1]
-        # If precision is low, Repeat/Review.
-        elif precision < 0.55:
+        # 2. Review: If precision is low, or lifts are too high, or very shaky (smoothness > 1.6)
+        elif precision < 0.55 or lifts > 4 or smoothness > 1.6:
             target = activities[current_lvl] + "_Review"
+        # 3. Stay: Okay precision but still unsteady, needs more practice
         else:
-            target = activities[current_lvl] # Just stay put
+            target = activities[current_lvl]
             
-        data.append([activities[current_lvl], precision, lifts, time_spent, target])
+        data.append([activities[current_lvl], precision, smoothness, lifts, time_spent, target])
 
-    # Also make sure the encoder knows about all review states by adding dummy samples at the end
-    for act in activities:
-        data.append([act, 0.90, 0, 15.0, act])
-        data.append([act, 0.40, 5, 45.0, act + "_Review"])
+    # Reinforce clear advancement and review patterns for every activity
+    for i, act in enumerate(activities[:-1]):
+        next_act = activities[i + 1]
+        # Strong advancement examples (high precision, smooth, low lifts)
+        for p in [0.80, 0.85, 0.90, 0.95]:
+            for s in [1.0, 1.1, 1.2]:
+                data.append([act, p, s, 0, 15.0, next_act])
+                data.append([act, p, s, 1, 20.0, next_act])
+        # Clear review examples
+        data.append([act, 0.40, 1.80, 5, 45.0, act + "_Review"])
+        data.append([act, 0.30, 1.90, 7, 50.0, act + "_Review"])
+    # ReadSimple stays at ReadSimple (final level)
+    data.append(["ReadSimple", 0.90, 1.10, 0, 15.0, "ReadSimple"])
+    data.append(["ReadSimple", 0.40, 1.80, 5, 45.0, "ReadSimple_Review"])
 
-    df = pd.DataFrame(data, columns=['current_activity', 'precision', 'lifts', 'time_spent', 'recommended_activity'])
+    df = pd.DataFrame(data, columns=['current_activity', 'precision', 'smoothness', 'lifts', 'time_spent', 'recommended_activity'])
     df.to_csv(output_path, index=False)
-    print(f"Dataset generated at {output_path}")
+    print(f"Dataset generated at {output_path} ({len(df)} rows)")
 
 if __name__ == "__main__":
-    generate_toddler_dataset()
+    generate_toddler_dataset()

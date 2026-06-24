@@ -13,7 +13,7 @@ def run_ml_pipeline(current_act, user_touches, time, lifts):
     # 2. Get AI Recommendation
     engine = RecommendationEngine()
     next_task = engine.get_recommendation(
-        current_act, metrics["precision"], lifts, time
+        current_act, metrics["precision"], metrics["smoothness"], lifts, time
     )
 
     return metrics, next_task
@@ -76,6 +76,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Note: We removed generate_toddler_dataset() and train_recommender()
-    # because you only need to run those ONCE, not every time you test!
     main()
