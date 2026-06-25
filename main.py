@@ -3,7 +3,7 @@ from src.buddy_service.buddy_ai import BuddyAI  # Use the AI version we just mad
 from src.ml_engine.processor import ActivityProcessor
 
 
-def run_ml_pipeline(current_act, user_touches, time, lifts):
+def run_ml_pipeline(student_name, current_act, user_touches, time, lifts):
     """Handles the math and the recommendation quietly."""
     # 1. Process Raw Data
     target_path = [(100, 100), (150, 150), (200, 100)]  # Example target
@@ -13,7 +13,7 @@ def run_ml_pipeline(current_act, user_touches, time, lifts):
     # 2. Get AI Recommendation
     engine = RecommendationEngine()
     next_task = engine.get_recommendation(
-        current_act, metrics["precision"], metrics["smoothness"], lifts, time
+        current_act, metrics["precision"], metrics["smoothness"], lifts, time, student_name=student_name
     )
 
     return metrics, next_task
@@ -62,17 +62,28 @@ def main():
     mock_touches = [(105, 102), (148, 155), (205, 95)]
 
     # 1. Run the AI Logic
-    metrics, next_task = run_ml_pipeline(current_activity, mock_touches, 15, 1)
+    metrics, next_task = run_ml_pipeline(student, current_activity, mock_touches, 15, 1)
 
-    # 2. Display ONLY the critical results
+    # 2. Display the critical and advanced results
     print(f"\n [REPORT] Student: {student}")
     print(f"   - Precision: {metrics['precision'] * 100}%")
+    print(f"   - Smoothness Ratio: {metrics['smoothness']}")
+    print(f"   - Dynamic Time Warping (DTW) Distance: {metrics.get('dtw_distance', 0.0)}")
+    print(f"   - Tremor/Jerk Index: {metrics.get('jerk_index', 0.0)}")
     print(f"   - Next Activity: {next_task}")
 
     # 3. Trigger the Real Buddy AI (The Voice part)
     print("\n [BUDDY] Speaking to child...")
     buddy = BuddyAI()
-    buddy.give_praise(student, metrics["precision"], current_activity, next_task, language_preference)
+    buddy.give_praise(
+        student,
+        metrics["precision"],
+        current_activity,
+        next_task,
+        language_preference,
+        jerk_index=metrics.get("jerk_index", 0.0),
+        velocity_variance=metrics.get("velocity_variance", 0.0)
+    )
 
 
 if __name__ == "__main__":

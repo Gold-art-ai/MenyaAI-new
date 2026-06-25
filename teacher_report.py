@@ -19,7 +19,7 @@ def generate_report():
     # Generate insights
     analyst = TeacherAnalyst()
     advice = analyst.get_individual_advice(
-        student, metrics["precision"], metrics["lifts"]
+        student, metrics["precision"], metrics["lifts"], metrics.get("jerk_index", 0.0)
     )
     
     print(f"\n==========================================")
@@ -28,6 +28,8 @@ def generate_report():
     print(f" Activity: {current_activity}")
     print(f" Precision: {metrics['precision'] * 100}%")
     print(f" Smoothness Ratio: {metrics['smoothness']}")
+    print(f" Dynamic Time Warping (DTW) Distance: {metrics.get('dtw_distance', 0.0)}")
+    print(f" Tremor/Jerk Index: {metrics.get('jerk_index', 0.0)}")
     print(f" Time Taken: {metrics['time']} seconds")
     print(f" Hand Lifts: {metrics['lifts']}")
     print(f"------------------------------------------")

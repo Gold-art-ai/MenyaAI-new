@@ -1,0 +1,32 @@
+{
+    "Gloria": {
+        "latent_abilities": {
+            "Lines": 0.5,
+            "Shapes": 0.72,
+            "Letters": 0.5,
+            "Numbers": 0.5,
+            "Words": 0.5,
+            "MathBasics": 0.5,
+            "ReadSimple": 0.5
+        },
+        "history": [
+            {
+                "activity": "Shapes",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Letters"
+            },
+            {
+                "activity": "Shapes",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Letters"
+            }
+        ],
+        "stagnation_counter": 0
+    }
+}
