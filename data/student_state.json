@@ -2,7 +2,7 @@
     "Gloria": {
         "latent_abilities": {
             "Lines": 0.5,
-            "Shapes": 0.72,
+            "Shapes": 0.79,
             "Letters": 0.5,
             "Numbers": 0.5,
             "Words": 0.5,
@@ -25,8 +25,26 @@
                 "lifts": 1,
                 "time_spent": 15,
                 "recommended_by_model": "Letters"
+            },
+            {
+                "activity": "Shapes",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Letters"
             }
         ],
-        "stagnation_counter": 0
+        "stagnation_counter": 0,
+        "chat_history": [
+            [
+                "user",
+                "Drew drawing shapes with 94% accuracy. Jerk: 13.9."
+            ],
+            [
+                "assistant",
+                "[RW] Wabikoze! Komeza buhoro buhoro, urembereze ikaramu neza! [EN] Draw slowly and steady!"
+            ]
+        ]
     }
 }
