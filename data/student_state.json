@@ -1,8 +1,236 @@
 {
     "Gloria": {
         "latent_abilities": {
-            "Lines": 0.5,
-            "Shapes": 0.79,
+            "Lines": 0.84,
+            "Shapes": 0.84,
+            "Letters": 0.9,
+            "Numbers": 0.93,
+            "Words": 0.5,
+            "MathBasics": 0.5,
+            "ReadSimple": 0.5
+        },
+        "history": [
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Letters",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Numbers"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Letters",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Numbers"
+            },
+            {
+                "activity": "Numbers",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Words"
+            },
+            {
+                "activity": "Letters",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Numbers"
+            },
+            {
+                "activity": "Letters",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Numbers"
+            },
+            {
+                "activity": "Lines",
+                "precision": 0.94,
+                "smoothness": 1.07,
+                "lifts": 1,
+                "time_spent": 15,
+                "recommended_by_model": "Shapes"
+            }
+        ],
+        "stagnation_counter": 0,
+        "chat_history": [
+            [
+                "user",
+                "Drew writing letters with 94% accuracy. Jerk: 13.9."
+            ],
+            [
+                "assistant",
+                "[EN] Oh wow! Take a breath, slow and steady!"
+            ],
+            [
+                "user",
+                "Drew writing letters with 94% accuracy. Jerk: 13.9."
+            ],
+            [
+                "assistant",
+                "[EN] Yippee! Draw slowly and steady!"
+            ],
+            [
+                "user",
+                "Drew writing letters with 94% accuracy. Jerk: 3.0."
+            ],
+            [
+                "assistant",
+                "[EN] Wow, Gloria, you are doing great tracing! You are trying so hard. Let's play a fun game now!"
+            ]
+        ]
+    },
+    "TestKid": {
+        "chat_history": [
+            [
+                "user",
+                "Drew drawing shapes with 90% accuracy. Jerk: 0.0."
+            ],
+            [
+                "assistant",
+                "[RW] Bip-bop, reba! Ukoze neza cyane! kuri gushushanya ishusho! [EN] I'm so proud of you! Let's try writing letters next!"
+            ],
+            [
+                "user",
+                "Drew drawing shapes with 90% accuracy. Jerk: 0.0."
+            ],
+            [
+                "assistant",
+                "[RW] Wakoze cyane, TestKid! Ngaho, gerageza gushushanya umurongo ugororotse. [EN] Wow, TestKid! You did so well! Let's try to draw a straight line now."
+            ],
+            [
+                "user",
+                "Drew drawing shapes with 90% accuracy. Jerk: 0.0."
+            ],
+            [
+                "assistant",
+                "[RW] Mbega ukuntu washushanyije neza, TestKid! Gerageza gushushanya buhoro buhoro. [EN] Wow, you drew so well, TestKid! Try to draw slowly, slowly."
+            ]
+        ]
+    },
+    "Amaury": {
+        "latent_abilities": {
+            "Lines": 0.82,
+            "Shapes": 0.5,
             "Letters": 0.5,
             "Numbers": 0.5,
             "Words": 0.5,
@@ -11,39 +239,55 @@
         },
         "history": [
             {
-                "activity": "Shapes",
-                "precision": 0.94,
-                "smoothness": 1.07,
+                "activity": "Lines",
+                "precision": 0.91,
+                "smoothness": 1.08,
                 "lifts": 1,
-                "time_spent": 15,
-                "recommended_by_model": "Letters"
+                "time_spent": 16,
+                "recommended_by_model": "Shapes"
             },
             {
-                "activity": "Shapes",
-                "precision": 0.94,
-                "smoothness": 1.07,
-                "lifts": 1,
-                "time_spent": 15,
-                "recommended_by_model": "Letters"
+                "activity": "Lines",
+                "precision": 0.98,
+                "smoothness": 0.95,
+                "lifts": 0,
+                "time_spent": 12,
+                "recommended_by_model": "Shapes"
             },
             {
-                "activity": "Shapes",
-                "precision": 0.94,
-                "smoothness": 1.07,
+                "activity": "Lines",
+                "precision": 0.91,
+                "smoothness": 1.08,
                 "lifts": 1,
-                "time_spent": 15,
-                "recommended_by_model": "Letters"
+                "time_spent": 16,
+                "recommended_by_model": "Shapes"
+            },
+            {
+                "activity": "Lines",
+                "precision": 0.91,
+                "smoothness": 1.08,
+                "lifts": 1,
+                "time_spent": 16,
+                "recommended_by_model": "Shapes"
             }
         ],
         "stagnation_counter": 0,
         "chat_history": [
             [
                 "user",
-                "Drew drawing shapes with 94% accuracy. Jerk: 13.9."
+                "Drew tracing lines with 98% accuracy. Jerk: 8.0."
             ],
             [
                 "assistant",
-                "[RW] Wabikoze! Komeza buhoro buhoro, urembereze ikaramu neza! [EN] Draw slowly and steady!"
+                "[EN] Wow, Amaury! You traced so nicely! That was super duper trying!"
+            ],
+            [
+                "user",
+                "Drew tracing lines with 91% accuracy. Jerk: 2.0."
+            ],
+            [
+                "assistant",
+                "[EN] Yay, Amaury! You traced those lines so well. Maybe you can try holding your crayon with two fingers next time? Let's play a fun game now!"
             ]
         ]
     }

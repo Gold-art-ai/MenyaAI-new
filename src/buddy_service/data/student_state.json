@@ -1,0 +1,78 @@
+{
+    "Gold": {
+        "chat_history": [
+            [
+                "user",
+                "Drew tracing lines with 60% accuracy. Jerk: 8.0."
+            ],
+            [
+                "assistant",
+                "[EN] High five! Let's draw very slowly, it is easier!"
+            ],
+            [
+                "user",
+                "Drew tracing lines with 70% accuracy. Jerk: 7.0."
+            ],
+            [
+                "assistant",
+                "[EN] Yay! Steady hand, slow and easy!"
+            ],
+            [
+                "user",
+                "Drew tracing lines with 70% accuracy. Jerk: 9.0."
+            ],
+            [
+                "assistant",
+                "[EN] Yippee! Steady hand, slow and easy!"
+            ]
+        ]
+    },
+    "God": {
+        "chat_history": [
+            [
+                "user",
+                "Drew tracing lines with 90% accuracy. Jerk: 9.0."
+            ],
+            [
+                "assistant",
+                "[EN] Yay! Let's draw very slowly, it is easier!"
+            ],
+            [
+                "user",
+                "Drew drawing shapes with 70% accuracy. Jerk: 6.0."
+            ],
+            [
+                "assistant",
+                "[EN] Woohoo! Draw slowly and steady!"
+            ]
+        ]
+    },
+    "Amaury": {
+        "chat_history": [
+            [
+                "user",
+                "Drew tracing lines with 900% accuracy. Jerk: 7.0."
+            ],
+            [
+                "assistant",
+                "[RW] Amaury, wakoze neza cyane gushushanya imirongo! Genda buhoro buhoro. [EN] Amaury, you traced the lines so well! Let's go slow and calm."
+            ],
+            [
+                "user",
+                "Drew drawing shapes with 900% accuracy. Jerk: 8.0."
+            ],
+            [
+                "assistant",
+                "[RW] Amaury, wakoze neza gushushanya! Noneho dushushanye inyuguti buhoro buhoro. [EN] Amaury, you drew so well! Now let's draw letters slowly."
+            ],
+            [
+                "user",
+                "Drew tracing lines with 91% accuracy. Jerk: 2.0."
+            ],
+            [
+                "assistant",
+                "[RW] Amaury, wakoze neza cyane gushushanya imirongo! [EN] Amaury, you did super well tracing lines!"
+            ]
+        ]
+    }
+}

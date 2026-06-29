@@ -5,6 +5,7 @@ import os
 import ctypes
 import pyttsx3
 import re
+import hashlib
 
 # ─────────────────────────────────────────────────────────────────────────────
 # KINYARWANDA PHONEME PREPROCESSING
@@ -48,11 +49,22 @@ def preprocess_kinyarwanda(text: str) -> str:
 # VOICE ENGINE
 # ─────────────────────────────────────────────────────────────────────────────
 
+# Warm, expressive Edge TTS voice for English — child-friendly (free)
+EN_VOICE = "en-US-AriaNeural"
+
 class VoiceEngine:
     def __init__(self, rw_voice="sw-KE-ZuriNeural"):
         self.rw_voice = rw_voice
-        self.en_engine = pyttsx3.init()
-        self.en_engine.setProperty('rate', 150)
+        self.en_engine = None   # pyttsx3 — lazy, only used as offline fallback
+        self.cache_dir = "data/tts_cache"
+        os.makedirs(self.cache_dir, exist_ok=True)
+
+    def _get_pyttsx3_fallback(self):
+        """Returns a pyttsx3 engine — only used when Edge TTS has no internet."""
+        if self.en_engine is None:
+            self.en_engine = pyttsx3.init()
+            self.en_engine.setProperty('rate', 150)
+        return self.en_engine
 
     def _play_native_windows(self, file_path):
         """Plays an MP3 directly through Windows MCI — no external player opens."""
@@ -80,13 +92,11 @@ class VoiceEngine:
             # Always close the MCI alias to release the device and file locks
             mci.mciSendStringW(f'close {alias}', None, 0, 0)
 
-    async def _generate_tts_file(self, text: str, voice: str) -> str:
-        """Generate TTS audio to a temp MP3 file, returns the file path."""
+    async def _generate_tts_file(self, text: str, voice: str, target_path: str) -> str:
+        """Generate TTS audio and save to target path."""
         communicate = edge_tts.Communicate(text, voice=voice)
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-            temp_path = tmp.name
-        await communicate.save(temp_path)
-        return temp_path
+        await communicate.save(target_path)
+        return target_path
 
     def _parse_segments(self, text, default_lang="RW"):
         """Parse tagged text into a list of (text, lang_code) tuples."""
@@ -110,14 +120,14 @@ class VoiceEngine:
     async def _pregenerate_all_tts(self, tts_tasks):
         """
         Pre-generate all Edge TTS audio files concurrently.
-        tts_tasks: list of (index, text, voice) tuples
-        Returns: dict mapping index -> temp_file_path
+        tts_tasks: list of (index, text, voice, target_path) tuples
+        Returns: dict mapping index -> target_file_path
         """
-        async def _gen(idx, text, voice):
-            path = await self._generate_tts_file(text, voice)
+        async def _gen(idx, text, voice, target_path):
+            path = await self._generate_tts_file(text, voice, target_path)
             return (idx, path)
 
-        results = await asyncio.gather(*[_gen(i, t, v) for i, t, v in tts_tasks])
+        results = await asyncio.gather(*[_gen(i, t, v, p) for i, t, v, p in tts_tasks])
         return dict(results)
 
     def speak(self, text, lang_code="RW"):
@@ -135,29 +145,45 @@ class VoiceEngine:
         if not parsed:
             return
 
-        # Collect Edge TTS tasks for concurrent generation
-        tts_tasks = []  # (index, processed_text, voice)
+        # Collect Edge TTS tasks for ALL languages (RW, FR, EN) concurrently
+        tts_tasks = []  # (index, processed_text, voice, target_path)
+        tts_files = {}  # index -> target_file_path
+
         for i, (seg_text, seg_lang) in enumerate(parsed):
-            if seg_lang == "RW":
-                tts_tasks.append((i, preprocess_kinyarwanda(seg_text), self.rw_voice))
-            elif seg_lang == "FR":
-                tts_tasks.append((i, seg_text, "fr-FR-DeniseNeural"))
+            if seg_lang in ("RW", "FR", "EN"):
+                if seg_lang == "RW":
+                    voice = self.rw_voice
+                    processed_text = preprocess_kinyarwanda(seg_text)
+                elif seg_lang == "FR":
+                    voice = "fr-FR-DeniseNeural"
+                    processed_text = seg_text
+                else:  # EN — warm Aria voice instead of robotic pyttsx3
+                    voice = EN_VOICE
+                    processed_text = seg_text
 
-        # Pre-generate all TTS audio files concurrently (one network round-trip)
-        tts_files = {}
+                # Check persistent cache first
+                text_hash = hashlib.md5(f"{processed_text}_{voice}".encode("utf-8")).hexdigest()
+                cached_path = os.path.join(self.cache_dir, f"{text_hash}.mp3")
+
+                if os.path.exists(cached_path) and os.path.getsize(cached_path) > 0:
+                    tts_files[i] = cached_path
+                else:
+                    tts_tasks.append((i, processed_text, voice, cached_path))
+
+        # Pre-generate all missing TTS audio concurrently (one network round-trip)
         if tts_tasks:
-            tts_files = asyncio.run(self._pregenerate_all_tts(tts_tasks))
+            try:
+                new_files = asyncio.run(self._pregenerate_all_tts(tts_tasks))
+                tts_files.update(new_files)
+            except Exception as e:
+                print(f"\n[VoiceEngine] Edge TTS unavailable ({e}), falling back to pyttsx3 for EN.")
 
-        # Play back all segments in order — TTS files are already on disk
-        try:
-            for i, (seg_text, seg_lang) in enumerate(parsed):
-                if seg_lang == "EN":
-                    self.en_engine.say(seg_text)
-                    self.en_engine.runAndWait()
-                elif i in tts_files:
-                    self._play_native_windows(tts_files[i])
-        finally:
-            # Clean up all temp files
-            for path in tts_files.values():
-                if os.path.exists(path):
-                    os.remove(path)
+        # Play back all segments in order
+        for i, (seg_text, seg_lang) in enumerate(parsed):
+            if i in tts_files:
+                self._play_native_windows(tts_files[i])
+            elif seg_lang == "EN":
+                # Offline fallback: pyttsx3 (only when Edge TTS has no internet)
+                engine = self._get_pyttsx3_fallback()
+                engine.say(seg_text)
+                engine.runAndWait()
